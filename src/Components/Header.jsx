@@ -19,7 +19,7 @@ function Header() {
         <div className="header-container">
           <Link to="/" className="logo">
             <img src="/logo.png" alt="Sunpure Logo" className="logo-img" />
-            <span>SUNPURE</span>
+            <span>HANI INDUSTRIES</span>
           </Link>
 
           <div className="search-bar">
