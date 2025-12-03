@@ -19,7 +19,7 @@ function Header() {
         <div className="header-container">
           <Link to="/" className="logo">
             <img src="/logo_1.png" alt="Hani's Industries Logo" className="logo-img" />
-            <span>HANI'S INDUSTRIES</span>
+            <span>HANI INDUSTRIES</span>
           </Link>
 
           <div className="search-bar">
