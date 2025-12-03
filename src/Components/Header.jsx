@@ -11,15 +11,15 @@ function Header() {
     <header className="header">
       <div className="header-top">
         <div className="header-top-content">
-          <p>India's Only Physically Refined Chemical Free Sunflower Oil</p>
+          <p>Premium Quality Oils & Spices - Refined with Care, No Chemicals</p>
         </div>
       </div>
 
       <div className="header-main">
         <div className="header-container">
           <Link to="/" className="logo">
-            <img src="/logo.png" alt="Sunpure Logo" className="logo-img" />
-            <span>HANI INDUSTRIES</span>
+            <img src="/logo_1.png" alt="Hani's Industries Logo" className="logo-img" />
+            <span>HANI'S INDUSTRIES</span>
           </Link>
 
           <div className="search-bar">

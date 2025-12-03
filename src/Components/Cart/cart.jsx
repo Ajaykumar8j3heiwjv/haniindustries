@@ -8,18 +8,18 @@ function CartPage() {
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: "SUNPURE SUNFLOWER OIL - 5 L JAR",
+      name: "HANI'S SUNFLOWER OIL - 5 L JAR",
       price: 650,
       quantity: 1,
-      image: "/sunflower-oil-jar.jpg",
+      image: "/oil-jar.jpg",
       size: "5L",
     },
     {
       id: 2,
-      name: "SUNPURE SUNFLOWER OIL - 2 L PET BOTTLE",
+      name: "HANI'S SUNFLOWER OIL - 2 L PET BOTTLE",
       price: 280,
       quantity: 2,
-      image: "/sunflower-oil-bottle.jpg",
+      image: "/glass-oil-bottle.png",
       size: "2L",
     },
   ])
@@ -66,7 +66,7 @@ function CartPage() {
                 {cartItems.map((item) => (
                   <div key={item.id} className="cart-item">
                     <div className="item-image">
-                      <img src={item.image || "/placeholder.svg"} alt={item.name} />
+                      <img src={item.image || "/placeholder.svg?height=100&width=100"} alt={item.name} />
                     </div>
                     <div className="item-details">
                       <h3>{item.name}</h3>

@@ -15,7 +15,7 @@ function CollectionsPage() {
   const allProducts = [
     {
       id: 1,
-      name: "SUNPURE SUNFLOWER OIL - 5 L JAR",
+      name: "HANI'S SUNFLOWER OIL - 5 L JAR",
       price: 650,
       originalPrice: 750,
       image: "/sunflower-oil-jar.jpg",
@@ -28,7 +28,7 @@ function CollectionsPage() {
     },
     {
       id: 2,
-      name: "SUNPURE SUNFLOWER OIL - 2 L PET BOTTLE",
+      name: "HANI'S SUNFLOWER OIL - 2 L PET BOTTLE",
       price: 280,
       originalPrice: 320,
       image: "/sunflower-oil-bottle.jpg",
@@ -41,10 +41,10 @@ function CollectionsPage() {
     },
     {
       id: 3,
-      name: "SUNPURE SUNFLOWER OIL - 1L PET BOTTLE",
+      name: "HANI'S SUNFLOWER OIL - 1L PET BOTTLE",
       price: 165,
       originalPrice: 180,
-      image: "/sunflower-oil-bottle-small.jpg",
+      image: "/small-oil-bottle.jpg",
       rating: 4.6,
       reviews: 156,
       discount: 8,
@@ -54,10 +54,10 @@ function CollectionsPage() {
     },
     {
       id: 4,
-      name: "SUNPURE SUNFLOWER OIL - 2L PET",
+      name: "HANI'S SUNFLOWER OIL - 2L PET",
       price: 295,
       originalPrice: 350,
-      image: "/sunflower-oil-container.jpg",
+      image: "/oil-container.png",
       rating: 4.4,
       reviews: 112,
       discount: 15,
@@ -67,10 +67,10 @@ function CollectionsPage() {
     },
     {
       id: 5,
-      name: "SUNPURE SUNFLOWER OIL - 5 L CAN",
+      name: "HANI'S SUNFLOWER OIL - 5 L CAN",
       price: 580,
       originalPrice: 700,
-      image: "/sunflower-oil-can.jpg",
+      image: "/oil-can.jpg",
       rating: 4.4,
       reviews: 89,
       discount: 17,
@@ -80,10 +80,10 @@ function CollectionsPage() {
     },
     {
       id: 6,
-      name: "SUNPURE SUNFLOWER OIL - 5 L JAR (PACK OF 2)",
+      name: "HANI'S SUNFLOWER OIL - 5 L JAR (PACK OF 2)",
       price: 1200,
       originalPrice: 1500,
-      image: "/sunflower-oil-pack.jpg",
+      image: "/oil-pack.jpg",
       rating: 4.3,
       reviews: 67,
       discount: 20,
@@ -93,10 +93,10 @@ function CollectionsPage() {
     },
     {
       id: 7,
-      name: "SUNPURE SUNFLOWER OIL - 10 L JAR",
+      name: "HANI'S SUNFLOWER OIL - 10 L JAR",
       price: 1200,
       originalPrice: 1400,
-      image: "/sunflower-oil-large-jar.jpg",
+      image: "/large-oil-jar.jpg",
       rating: 4.5,
       reviews: 112,
       discount: 14,
@@ -106,7 +106,7 @@ function CollectionsPage() {
     },
     {
       id: 8,
-      name: "SUNPURE RICE BRAN OIL - 1 L",
+      name: "HANI'S RICE BRAN OIL - 1 L",
       price: 280,
       originalPrice: 320,
       image: "/rice-bran-oil.jpg",
@@ -122,18 +122,15 @@ function CollectionsPage() {
   const getFilteredProducts = () => {
     let filtered = [...allProducts]
 
-    // Apply availability filter
     if (filters.availability !== "all") {
       filtered = filtered.filter((p) => p.availability === filters.availability)
     }
 
-    // Apply price filter
     if (filters.priceRange !== "all") {
       const [min, max] = filters.priceRange.split("-").map(Number)
       filtered = filtered.filter((p) => p.price >= min && (max ? p.price <= max : true))
     }
 
-    // Apply sorting
     switch (sortBy) {
       case "price-low":
         filtered.sort((a, b) => a.price - b.price)
