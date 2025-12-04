@@ -18,7 +18,7 @@
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: var(--primary-yellow);
+  color: gray;
 }
 
 .footer-section h4 {
@@ -29,7 +29,7 @@
 }
 
 .footer-logo {
-  width: 100px;
+  width: 140px;
   height: auto;
 }
 

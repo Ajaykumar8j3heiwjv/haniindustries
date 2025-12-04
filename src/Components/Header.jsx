@@ -9,17 +9,17 @@ function Header() {
 
   return (
     <header className="header">
-      <div className="header-top">
+      {/* <div className="header-top">
         <div className="header-top-content">
           <p>Premium Quality Oils & Spices - Refined with Care, No Chemicals</p>
         </div>
-      </div>
+      </div> */}
 
       <div className="header-main">
         <div className="header-container">
           <Link to="/" className="logo">
             <img src="/logo_1.png" alt="Hani's Industries Logo" className="logo-img" />
-            <span>HANI INDUSTRIES</span>
+            {/* <span>HANI INDUSTRIES</span> */}
           </Link>
 
           <div className="search-bar">
@@ -28,7 +28,7 @@ function Header() {
           </div>
 
           <div className="header-actions">
-            <button className="account-btn">👤 Account</button>
+            {/* <button className="account-btn">👤 Account</button> */}
             <button className="cart-btn">🛒 Rs. 10,200</button>
           </div>
 
@@ -40,7 +40,7 @@ function Header() {
 
       <nav className={`navbar ${isMenuOpen ? "active" : ""}`}>
         <Link to="/">HOME</Link>
-        <Link to="/">BISO STORE</Link>
+        {/* <Link to="/">BISO STORE</Link> */}
         <Link to="/collections">SHOP BY CATEGORY</Link>
         <Link to="/">OFFERS</Link>
         <Link to="/">CONTACT</Link>

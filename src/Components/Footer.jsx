@@ -6,10 +6,11 @@ function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>HANI INDUSTRIES, YOUR TRUSTED WELLNESS COMPANION</h3>
+          
           <div className="footer-logo">
-            <img src="/hani-logo.png" alt="Hani's Industries" />
+            <img src="/logo_1.png" alt="Hani's Industries" />
           </div>
+          {/* <h3>YOUR TRUSTED WELLNESS COMPANION</h3> */}
         </div>
 
         <div className="footer-section">
@@ -59,14 +60,19 @@ function Footer() {
 
         <div className="footer-section">
           <h4>Contact Info</h4>
-          <p>Email: info@hanisindustries.com</p>
-          <p>Phone: +91-1234-567-890</p>
-          <p>Address: Factory Lane, Industrial Area, India</p>
+          <p>Email: hanisindustries2020@gmail.com</p>
+          <p>Phone: +91 93427 08080</p> 
+          <p>Address: Plot No:44, 
+                          Vaishnavi nagar
+                          Thimmavaram
+                          Chengalpattu
+                         <br /> 
+                          603101 </p>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2025 Hani's Industries. All rights reserved. Powered by Shopify</p>
+        <p>&copy; 2025 Hani's Industries. All rights reserved.</p>
       </div>
     </footer>
   )

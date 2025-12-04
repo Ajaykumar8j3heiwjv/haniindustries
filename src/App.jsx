@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage"
 import CollectionsPage from "./Components/Collections/collection"
 import ProductsPage from "./Components/products/products"
 import CartPage from "./Components/Cart/cart"
+import Contact from "./Components/Contact"
 import "./App.css"
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/collections" element={<CollectionsPage />} />
           <Route path="/products/:id" element={<ProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer />

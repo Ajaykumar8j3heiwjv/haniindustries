@@ -1,8 +1,9 @@
 import Hero from "./Hero"
 import FeaturedProducts from "./FeatureProducts"
 import WhyChooseUs from "./WhyChooseUs"
-import RecipesSection from "./RecipesSection"
+import QualitySection from "./QualitySection"
 import NewsletterSignup from "./NewsletterSignup"
+import Contact from "./Contact"
 
 function HomePage() {
   return (
@@ -10,8 +11,9 @@ function HomePage() {
       <Hero />
       <FeaturedProducts />
       <WhyChooseUs />
-      <RecipesSection />
-      <NewsletterSignup />
+      <QualitySection />
+      {/* <NewsletterSignup /> */}
+      <Contact />
     </div>
   )
 }

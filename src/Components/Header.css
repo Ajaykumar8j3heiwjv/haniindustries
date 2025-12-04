@@ -23,6 +23,7 @@
 
 .header-main {
   border-bottom: 1px solid var(--border-light);
+  background: #142a5a;
   padding: 15px 0;
 }
 
@@ -47,7 +48,7 @@
 }
 
 .logo-img {
-  height: 40px;
+  height: 80px;
   width: auto;
 }
 
@@ -93,7 +94,7 @@
   padding: 10px 15px;
   border: 1px solid var(--border-light);
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: #f9f8f8;
   cursor: pointer;
   font-size: 13px;
   transition: all 0.3s ease;
@@ -106,7 +107,7 @@
 }
 
 .cart-btn {
-  background-color: var(--primary-navy);
+  background-color:rgb(23, 137, 182);
   color: white;
   border-color: var(--primary-navy);
   font-weight: bold;
@@ -118,6 +119,7 @@
 
 .menu-toggle {
   display: none;
+  color: aliceblue;
   background: none;
   border: none;
   font-size: 24px;
@@ -132,6 +134,7 @@
   background-color: #f9f9f9;
   max-width: 1200px;
   margin: 0 auto;
+  position: sticky;
 }
 
 .navbar a {
@@ -153,7 +156,7 @@
   }
 
   .search-bar {
-    max-width: 200px;
+    max-width: 230px;
   }
 
   .account-btn {
@@ -166,6 +169,10 @@
 
   .menu-toggle {
     display: block;
+  }
+
+  .cart-btn{
+    left: 50px;
   }
 
   .navbar {
@@ -212,20 +219,27 @@
   }
 
   .logo-img {
-    height: 32px;
+    height: 55px;
+    min-width: 65px;
   }
 
   .search-bar {
-    max-width: 120px;
+    max-width: 180px;
   }
 
   .search-bar input {
-    padding: 8px 8px;
+    padding: 8px 8px 8px 8px;
     font-size: 12px;
+  }
+
+  .search-btn{
+    padding: 0;
+    margin:0;
   }
 
   .cart-btn {
     padding: 8px 10px;
+    /* margin-left: 40px; */
     font-size: 11px;
   }
 
