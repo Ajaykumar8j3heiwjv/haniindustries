@@ -29,7 +29,7 @@ function Hero() {
     {
       id: 4,
       title: "Bath Room Cleaner",
-      image: "/Products/others/hero5.png",
+      image: "/Products/others/hero7.png",
       description: "Deep-action bathroom cleaner that removes stains, germs, and hard-water marks.",
     },
     {
