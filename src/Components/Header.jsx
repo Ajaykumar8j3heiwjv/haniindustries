@@ -2,24 +2,21 @@
 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useCart } from "./Cart/CartContext"
 import "./Header.css"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const { getCartCount } = useCart()
 
   return (
     <header className="header">
-      {/* <div className="header-top">
-        <div className="header-top-content">
-          <p>Premium Quality Oils & Spices - Refined with Care, No Chemicals</p>
-        </div>
-      </div> */}
 
       <div className="header-main">
         <div className="header-container">
           <Link to="/" className="logo">
-            <img src="/logo_1.png" alt="Hani's Industries Logo" className="logo-img" />
-            {/* <span>HANI INDUSTRIES</span> */}
+            <img src="/logo_1.png" alt="Hani Industries Logo" className="logo-img" />
           </Link>
 
           <div className="search-bar">
@@ -28,11 +25,13 @@ function Header() {
           </div>
 
           <div className="header-actions">
-            {/* <button className="account-btn">👤 Account</button> */}
-            <button className="cart-btn">🛒 Rs. 10,200</button>
+            <Link to="/cart" className="cart-btn"><span style={{ fontSize: '1.5em' }}>🛒</span> <span style={{ backgroundColor: 'red', color: 'white', borderRadius: '50%', padding: '2px 6px', fontSize: '0.8em', marginLeft: '5px' }}>{getCartCount()}</span></Link>
           </div>
 
-          <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button
+            className="menu-toggle"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             ☰
           </button>
         </div>
@@ -40,10 +39,50 @@ function Header() {
 
       <nav className={`navbar ${isMenuOpen ? "active" : ""}`}>
         <Link to="/">HOME</Link>
-        {/* <Link to="/">BISO STORE</Link> */}
-        <Link to="/collections">SHOP BY CATEGORY</Link>
-        <Link to="/">OFFERS</Link>
-        <Link to="/">CONTACT</Link>
+
+        <div className="dropdown">
+          <button
+            className="dropdown-toggle"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            SHOP BY CATEGORY ▼
+          </button>
+
+          {isDropdownOpen && (
+            <div className="dropdown-menu">
+              <Link
+                to="/collections?category=oil"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Oils
+              </Link>
+
+              <Link
+                to="/collections?category=cleaners"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Cleaners
+              </Link>
+
+              <Link
+                to="/collections?category=appalam"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Appalam
+              </Link>
+
+              <Link
+                to="/collections?category=others"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Others
+              </Link>
+            </div>
+          )}
+        </div>
+
+        <Link to="/collections">OFFERS</Link>
+        <Link to="/Contact">CONTACT</Link>
       </nav>
     </header>
   )

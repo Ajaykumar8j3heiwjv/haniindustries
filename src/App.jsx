@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { CartProvider } from "./Components/Cart/CartContext"
 import Header from "./Components/Header"
 import Footer from "./Components/Footer"
 import HomePage from "./Components/HomePage"
@@ -10,19 +11,21 @@ import "./App.css"
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/collections" element={<CollectionsPage />} />
-          <Route path="/products/:id" element={<ProductsPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+    <CartProvider>
+      <Router>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/collections" element={<CollectionsPage />} />
+            <Route path="/products/:id" element={<ProductsPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </CartProvider>
   )
 }
 

@@ -1,68 +1,38 @@
 "use client"
 
 import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import RelatedProducts from "../RelatedProducts"
+import featuredProducts from "../productsData"
+import { useCart } from "../Cart/CartContext"
 import "./products.css"
 
 function ProductsPage() {
   const { id } = useParams()
   const [quantity, setQuantity] = useState(1)
-  const [selectedSize, setSelectedSize] = useState("1L")
 
-  // Sample product data - replace with actual data fetching
-  const product = {
-    id: id,
-    name: "SUNPURE SUNFLOWER OIL - 5 L JAR",
-    price: 650,
-    originalPrice: 750,
-    rating: 4.5,
-    reviews: 128,
-    discount: 13,
-    description:
-      "Pure Spices With No Chemicals, No Preservatives. India's Only Physically Refined Chemical Free Sunflower Oil.",
-    longDescription:
-      "Experience the pure goodness of Sunpure Sunflower Oil - physically refined using traditional methods with zero chemicals or preservatives. Perfect for all your cooking needs, this premium quality oil is sourced from the finest sunflower seeds and processed with utmost care to maintain its nutritional value.",
-    images: ["/sunflower-oil-jar.jpg", "/sunflower-oil-bottle.jpg", "/sunflower-oil-container.jpg"],
-    sizes: ["500ML", "1L", "2L", "5L"],
-    features: [
-      "100% Pure and Natural",
-      "No Chemicals or Additives",
-      "Physically Refined",
-      "Rich in Vitamin E",
-      "Suitable for All Cooking Methods",
-      "Long Shelf Life",
-    ],
-  }
+  // Find the product by id
+  const product = featuredProducts.find(p => p.id === parseInt(id))
+  const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "")
+
+  // Get price for selected size
+  const selectedSizePrice = product?.sizePrices?.[selectedSize]
+  const currentPrice = selectedSizePrice?.price || product.price
+  const originalPrice = selectedSizePrice?.originalPrice || product.originalPrice
+  const discount = selectedSizePrice ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100) : product.discount
+
+  const { addToCart } = useCart()
+  const navigate = useNavigate()
 
   const handleAddToCart = () => {
-    console.log(`Added ${quantity} of ${selectedSize} to cart`)
+    addToCart(product, quantity, selectedSize)
+    navigate('/cart')
   }
 
-  const relatedProducts = [
-    {
-      id: 2,
-      name: "SUNPURE SUNFLOWER OIL - 2 L PET BOTTLE",
-      price: 280,
-      originalPrice: 320,
-      image: "/sunflower-oil-bottle.jpg",
-      rating: 4.3,
-      reviews: 95,
-      discount: 12,
-      badge: "sale",
-    },
-    {
-      id: 3,
-      name: "SUNPURE RICE BRAN OIL - 1 L",
-      price: 180,
-      originalPrice: 200,
-      image: "/rice-bran-oil.jpg",
-      rating: 4.4,
-      reviews: 78,
-      discount: 10,
-      badge: "",
-    },
-  ]
+  // Get related products from the same category, excluding the current product
+  const relatedProducts = featuredProducts
+    .filter(p => p.category === product.category && p.id !== product.id)
+    .slice(0, 3) // Limit to 3 related products
 
   return (
     <div className="products-page">
@@ -78,7 +48,7 @@ function ProductsPage() {
         <div className="product-images">
           <div className="main-image">
             <img src={product.images[0] || "/placeholder.svg"} alt={product.name} />
-            {product.discount > 0 && <span className="discount-badge">-{product.discount}%</span>}
+            {discount > 0 && <span className="discount-badge">-{discount}%</span>}
           </div>
           <div className="thumbnail-gallery">
             {product.images.map((img, idx) => (
@@ -98,9 +68,9 @@ function ProductsPage() {
 
           <div className="product-price-section">
             <div className="prices">
-              <span className="current-price">Rs. {product.price}</span>
-              <span className="original-price">Rs. {product.originalPrice}</span>
-              <span className="discount-percent">Save {product.discount}%</span>
+              <span className="current-price">Rs. {currentPrice}</span>
+              <span className="original-price">Rs. {originalPrice}</span>
+              <span className="discount-percent">Save {discount}%</span>
             </div>
           </div>
 

@@ -1,126 +1,31 @@
 "use client"
 
 import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
 import ProductCard from "../ProductCard"
 import "../ProductGrid.css"
 import "./collection.css"
+import productsData from "../productsData"
 
 function CollectionsPage() {
+  const [searchParams] = useSearchParams()
+  const category = searchParams.get("category")
+
   const [filters, setFilters] = useState({
     availability: "all",
     priceRange: "all",
   })
   const [sortBy, setSortBy] = useState("featured")
 
-  const allProducts = [
-    {
-      id: 1,
-      name: "HANI'S SUNFLOWER OIL - 5 L JAR",
-      price: 650,
-      originalPrice: 750,
-      image: "/sunflower-oil-jar.jpg",
-      rating: 4.5,
-      reviews: 128,
-      discount: 13,
-      badge: "sale",
-      availability: "in-stock",
-      category: "oil",
-    },
-    {
-      id: 2,
-      name: "HANI'S SUNFLOWER OIL - 2 L PET BOTTLE",
-      price: 280,
-      originalPrice: 320,
-      image: "/sunflower-oil-bottle.jpg",
-      rating: 4.3,
-      reviews: 95,
-      discount: 12,
-      badge: "sale",
-      availability: "in-stock",
-      category: "oil",
-    },
-    {
-      id: 3,
-      name: "HANI'S SUNFLOWER OIL - 1L PET BOTTLE",
-      price: 165,
-      originalPrice: 180,
-      image: "/small-oil-bottle.jpg",
-      rating: 4.6,
-      reviews: 156,
-      discount: 8,
-      badge: "sale",
-      availability: "in-stock",
-      category: "oil",
-    },
-    {
-      id: 4,
-      name: "HANI'S SUNFLOWER OIL - 2L PET",
-      price: 295,
-      originalPrice: 350,
-      image: "/oil-container.png",
-      rating: 4.4,
-      reviews: 112,
-      discount: 15,
-      badge: "sale",
-      availability: "in-stock",
-      category: "oil",
-    },
-    {
-      id: 5,
-      name: "HANI'S SUNFLOWER OIL - 5 L CAN",
-      price: 580,
-      originalPrice: 700,
-      image: "/oil-can.jpg",
-      rating: 4.4,
-      reviews: 89,
-      discount: 17,
-      badge: "sale",
-      availability: "low-stock",
-      category: "oil",
-    },
-    {
-      id: 6,
-      name: "HANI'S SUNFLOWER OIL - 5 L JAR (PACK OF 2)",
-      price: 1200,
-      originalPrice: 1500,
-      image: "/oil-pack.jpg",
-      rating: 4.3,
-      reviews: 67,
-      discount: 20,
-      badge: "sale",
-      availability: "in-stock",
-      category: "oil",
-    },
-    {
-      id: 7,
-      name: "HANI'S SUNFLOWER OIL - 10 L JAR",
-      price: 1200,
-      originalPrice: 1400,
-      image: "/large-oil-jar.jpg",
-      rating: 4.5,
-      reviews: 112,
-      discount: 14,
-      badge: "sale",
-      availability: "low-stock",
-      category: "oil",
-    },
-    {
-      id: 8,
-      name: "HANI'S RICE BRAN OIL - 1 L",
-      price: 280,
-      originalPrice: 320,
-      image: "/rice-bran-oil.jpg",
-      rating: 4.2,
-      reviews: 45,
-      discount: 12,
-      badge: "",
-      availability: "in-stock",
-      category: "oil",
-    },
-  ]
+  const allProducts = productsData
 
   const getFilteredProducts = () => {
     let filtered = [...allProducts]
+
+    // Filter by category from URL
+    if (category && category !== "others") {
+      filtered = filtered.filter((p) => p.category === category)
+    }
 
     if (filters.availability !== "all") {
       filtered = filtered.filter((p) => p.availability === filters.availability)
@@ -150,6 +55,19 @@ function CollectionsPage() {
 
   const filteredProducts = getFilteredProducts()
 
+  const getPageTitle = () => {
+    switch (category) {
+      case "oil":
+        return "EDIBLE OIL"
+      case "cleaners":
+        return "CLEANERS"
+      case "appalam":
+        return "APPALAM"
+      default:
+        return "ALL PRODUCTS"
+    }
+  }
+
   return (
     <div className="collections-page">
       <div className="breadcrumb">
@@ -157,11 +75,11 @@ function CollectionsPage() {
         <span> / </span>
         <span>Collections</span>
         <span> / </span>
-        <span className="current">EDIBLE OIL</span>
+        <span className="current">{getPageTitle()}</span>
       </div>
 
       <div className="collections-container">
-        <h1 className="page-title">EDIBLE OIL</h1>
+        <h1 className="page-title">{getPageTitle()}</h1>
 
         <div className="collections-content">
           <aside className="filters-sidebar">

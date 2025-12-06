@@ -10,54 +10,111 @@ function FeaturedProducts() {
   const featuredProducts = [
     {
       id: 1,
-      name: "HANI'S SUNFLOWER OIL - 5 L JAR",
-      price: 650,
-      originalPrice: 750,
-      image: "/sunflower-oil-jar.jpg",
+      name: "HANI'S IDHAYAM OIL - 500 ML PET BOTTLE",
+      price: 130,
+      originalPrice: 220,
+      image: "/Products/oils/idhayam_oil_500_ml_-removebg-preview.png",
       rating: 4.5,
       reviews: 128,
       discount: 13,
       badge: "sale",
+      category: "oil",
     },
     {
       id: 2,
-      name: "HANI'S SUNFLOWER OIL - 2 L PET BOTTLE",
-      price: 280,
-      originalPrice: 320,
-      image: "/sunflower-oil-bottle.jpg",
+      name: "HANI'S IDHAYAM OIL - 1 L PET BOTTLE",
+      price: 260,
+      originalPrice: 430,
+      image: "/Products/oils/idhayam_oil_1000ml_-removebg-preview.png",
       rating: 4.3,
       reviews: 95,
       discount: 12,
       badge: "sale",
+      category: "oil",
     },
     {
       id: 3,
-      name: "HANI'S SUNFLOWER OIL - 1L PET BOTTLE",
-      price: 165,
-      originalPrice: 180,
-      image: "/sunflower-oil-small.jpg",
+      name: "HANI'S DEVI OIL - 1 L PET BOTTLE",
+      price: 150,
+      originalPrice: 300,
+      image: "/Products/oils/devi_olii-removebg-preview.png",
       rating: 4.6,
       reviews: 156,
       discount: 8,
       badge: "sale",
+      category: "oil",
     },
     {
       id: 4,
-      name: "HANI'S SUNFLOWER OIL - 2L PET",
-      price: 295,
-      originalPrice: 350,
-      image: "/sunflower-oil-container.jpg",
+      name: "HANI'S DEVI OIL - 500 ML PET",
+      price: 76,
+      originalPrice: 152,
+      image: "/Products/oils/devi_olii-removebg-preview.png",
       rating: 4.4,
       reviews: 112,
       discount: 15,
       badge: "sale",
+      category: "oil",
+    },
+    {
+      id: 5,
+      name: "HANI'S LUCKY-ALL FLOOR CLEANER - LEMON 500 ML",
+      price: 80,
+      originalPrice: 110,
+      image: "/Products/others/Lucky_All-removebg-preview.png",
+      rating: 4.4,
+      reviews: 89,
+      discount: 20,
+      badge: "sale",
+      category: "cleaners",
+    },
+    {
+      id: 6,
+      name: "HANI'S HAPPY HOMES BATHROOM CLEANER 500 ML",
+      price: 70,
+      originalPrice: 90,
+      image: "/Products/others/happyhome-removebg-preview.png",
+      rating: 4.2,
+      reviews: 64,
+      discount: 22,
+      badge: "sale",
+      category: "cleaners",
+    },
+    {
+      id: 7,
+      name: "HANI'S RICH ALA 500 ML ",
+      price: 45,
+      originalPrice: 90,
+      image: "/Products/others/hero8.jpg",
+      rating: 4.3,
+      reviews: 47,
+      discount: 18,
+      badge: "sale",
+      category: "cleaners",
+    },
+    {
+      id: 8,
+      name: "HANI'S APPALAM 10 PCS",
+      price: 25,
+      originalPrice: 40,
+      image: "/Products/others/hero3.png",
+      rating: 4.1,
+      reviews: 33,
+      discount: 10,
+      badge: "sale",
+      category: "other",
     },
   ]
+
+  const filteredProducts =
+    activeFilter === "all"
+      ? featuredProducts
+      : featuredProducts.filter((p) => p.category === activeFilter)
 
   return (
     <section className="featured-products">
       <div className="featured-container">
-        <h2 className="featured-title">Featured collection</h2>
+        <h2 className="featured-title">Featured Collection</h2>
 
         <div className="featured-filters">
           <button
@@ -66,28 +123,31 @@ function FeaturedProducts() {
           >
             View All
           </button>
+
           <button
             className={`filter-btn ${activeFilter === "oil" ? "active" : ""}`}
             onClick={() => setActiveFilter("oil")}
           >
-            OIL
+            Oils
           </button>
+
           <button
-            className={`filter-btn ${activeFilter === "spices" ? "active" : ""}`}
-            onClick={() => setActiveFilter("spices")}
+            className={`filter-btn ${activeFilter === "cleaners" ? "active" : ""}`}
+            onClick={() => setActiveFilter("cleaners")}
           >
-            Wheat Flour
+            Cleaners
           </button>
+
           <button
             className={`filter-btn ${activeFilter === "other" ? "active" : ""}`}
             onClick={() => setActiveFilter("other")}
           >
-            SPICES
+            Others
           </button>
         </div>
 
         <div className="products-grid">
-          {featuredProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

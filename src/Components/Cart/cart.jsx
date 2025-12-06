@@ -2,39 +2,11 @@
 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useCart } from "./CartContext"
 import "./cart.css"
 
 function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "HANI'S SUNFLOWER OIL - 5 L JAR",
-      price: 650,
-      quantity: 1,
-      image: "/oil-jar.jpg",
-      size: "5L",
-    },
-    {
-      id: 2,
-      name: "HANI'S SUNFLOWER OIL - 2 L PET BOTTLE",
-      price: 280,
-      quantity: 2,
-      image: "/glass-oil-bottle.png",
-      size: "2L",
-    },
-  ])
-
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity === 0) {
-      removeItem(id)
-    } else {
-      setCartItems(cartItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item)))
-    }
-  }
-
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id))
-  }
+  const { cartItems, updateQuantity, removeItem } = useCart()
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const tax = subtotal * 0.18

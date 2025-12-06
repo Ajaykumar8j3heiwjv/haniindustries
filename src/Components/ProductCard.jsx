@@ -38,7 +38,7 @@ function ProductCard({ product }) {
         </Link>
       </div>
 
-      {isHovered && <button className="quick-view-btn">Quick View</button>}
+
     </div>
   )
 }
