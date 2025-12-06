@@ -1,10 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import "../styles/AddProduct.css"
 
 export default function AddProduct() {
+  const fileInputRef = useRef(null)
+
   const [formData, setFormData] = useState({
+    productId: "",
     productName: "",
     category: "",
     price: "",
@@ -12,9 +15,15 @@ export default function AddProduct() {
     stock: "",
     description: "",
     image: null,
+    reviewNo: "",
+    tax: "",
+    sizeType: "",
+    size: "",
   })
 
   const [successMessage, setSuccessMessage] = useState("")
+  const [imagePreview, setImagePreview] = useState(null)
+  const [addedProducts, setAddedProducts] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -22,14 +31,31 @@ export default function AddProduct() {
   }
 
   const handleFileChange = (e) => {
-    setFormData((prev) => ({ ...prev, image: e.target.files[0] }))
+    const file = e.target.files[0]
+    setFormData((prev) => ({ ...prev, image: file }))
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => setImagePreview(e.target.result)
+      reader.readAsDataURL(file)
+    } else {
+      setImagePreview(null)
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setSuccessMessage("Product added successfully!")
     setTimeout(() => setSuccessMessage(""), 3000)
+    setAddedProducts((prev) => [...prev, {
+      productId: formData.productId,
+      productName: formData.productName,
+      image: imagePreview,
+      price: formData.price,
+      stock: formData.stock,
+      size: formData.size,
+    }])
     setFormData({
+      productId: "",
       productName: "",
       category: "",
       price: "",
@@ -37,7 +63,12 @@ export default function AddProduct() {
       stock: "",
       description: "",
       image: null,
+      reviewNo: "",
+      tax: "",
+      sizeType: "",
+      size: "",
     })
+    setImagePreview(null)
   }
 
   return (
@@ -51,6 +82,19 @@ export default function AddProduct() {
           <h3 className="section-heading">Product Information</h3>
 
           <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="productId">Product ID *</label>
+              <input
+                type="text"
+                id="productId"
+                name="productId"
+                value={formData.productId}
+                onChange={handleChange}
+                placeholder="Enter product ID"
+                required
+              />
+            </div>
+
             <div className="form-group">
               <label htmlFor="productName">Product Name *</label>
               <input
@@ -68,10 +112,10 @@ export default function AddProduct() {
               <label htmlFor="category">Category *</label>
               <select id="category" name="category" value={formData.category} onChange={handleChange} required>
                 <option value="">Select Category</option>
-                <option value="chemicals">Chemicals</option>
-                <option value="hardware">Hardware</option>
-                <option value="electronics">Electronics</option>
-                <option value="packaging">Packaging</option>
+                <option value="oils">oils</option>
+                <option value="cleaners">cleaners</option>
+                <option value="others">others</option>
+                {/* <option value="packaging">Packaging</option> */}
               </select>
             </div>
           </div>
@@ -138,10 +182,76 @@ export default function AddProduct() {
           <div className="form-group full-width">
             <label htmlFor="image">Product Image *</label>
             <div className="file-input-wrapper">
-              <input type="file" id="image" name="image" onChange={handleFileChange} accept="image/*" required />
-              <span className="file-label">{formData.image ? formData.image.name : "Choose image file..."}</span>
+              <input type="file" id="image" name="image" onChange={handleFileChange} accept="image/*" required ref={fileInputRef} />
+              <span className="file-label" onClick={() => fileInputRef.current.click()}>{formData.image ? formData.image.name : "Choose image file..."}</span>
+              {imagePreview && <img src={imagePreview} alt="Preview" className="image-preview" />}
             </div>
           </div>
+
+          <div className="form-group full-width">
+            <label htmlFor="reviewNo">Number of Reviews</label>
+            <input
+              type="number"
+              id="reviewNo"
+              name="reviewNo"
+              value={formData.reviewNo}
+              onChange={handleChange}
+              placeholder="0"
+              min="0"
+            />
+          </div>
+
+          <div className="form-group full-width">
+            <label>Tax (%)</label>
+            <div className="tax-buttons">
+              <button type="button" className={`tax-btn ${formData.tax === "5" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, tax: "5" }))}>5%</button>
+              <button type="button" className={`tax-btn ${formData.tax === "12" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, tax: "12" }))}>12%</button>
+              <button type="button" className={`tax-btn ${formData.tax === "18" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, tax: "18" }))}>18%</button>
+            </div>
+          </div>
+
+          <div className="form-group full-width">
+            <label htmlFor="sizeType">Size Type</label>
+            <select id="sizeType" name="sizeType" value={formData.sizeType} onChange={handleChange}>
+              <option value="">Select Size Type</option>
+              <option value="liters">Liters</option>
+              <option value="grams">Grams</option>
+              <option value="pcs">Pcs</option>
+            </select>
+          </div>
+
+          {formData.sizeType && (
+            <div className="form-group full-width">
+              <label>Choose Size</label>
+              {formData.sizeType === "pcs" ? (
+                <input
+                  type="number"
+                  name="size"
+                  value={formData.size}
+                  onChange={handleChange}
+                  placeholder="Enter number of pcs"
+                  min="1"
+                />
+              ) : (
+                <div className="size-buttons">
+                  {formData.sizeType === "liters" && (
+                    <>
+                      <button type="button" className={`size-btn ${formData.size === "200 ml" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, size: "200 ml" }))}>200 ml</button>
+                      <button type="button" className={`size-btn ${formData.size === "500 ml" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, size: "500 ml" }))}>500 ml</button>
+                      <button type="button" className={`size-btn ${formData.size === "1000 ml" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, size: "1000 ml" }))}>1000 ml</button>
+                    </>
+                  )}
+                  {formData.sizeType === "grams" && (
+                    <>
+                      <button type="button" className={`size-btn ${formData.size === "250 mg" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, size: "250 mg" }))}>250 mg</button>
+                      <button type="button" className={`size-btn ${formData.size === "500 mg" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, size: "500 mg" }))}>500 mg</button>
+                      <button type="button" className={`size-btn ${formData.size === "1000 mg" ? "active" : ""}`} onClick={() => setFormData((prev) => ({ ...prev, size: "1000 mg" }))}>1000 mg</button>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="form-actions">
@@ -153,6 +263,38 @@ export default function AddProduct() {
           </button>
         </div>
       </form>
+
+      {addedProducts.length > 0 && (
+        <div className="added-products-table">
+          <h3 className="table-heading">Added Products</h3>
+          <table className="products-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              {addedProducts.map((product, index) => (
+                <tr key={index}>
+                  <td>
+                    {product.image && <img src={product.image} alt={product.productName} className="table-image" />}
+                  </td>
+                  <td>{product.productId}</td>
+                  <td>{product.productName}</td>
+                  <td>₹{product.price}</td>
+                  <td>{product.stock}</td>
+                  <td>{product.size}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   )
 }

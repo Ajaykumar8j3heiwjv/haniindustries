@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "./AdminDashboard.css"
 import AddProduct from "./modules/AddProduct"
 import AddFeaturedProduct from "./modules/AddFeaturedProduct"
@@ -10,6 +11,9 @@ import PlacedOrders from "./modules/PlacedOrders"
 
 export default function AdminDashboard({ onLogout }) {
   const [activeModule, setActiveModule] = useState("dashboard")
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
+  const navigate = useNavigate()
 
   const renderContent = () => {
     switch (activeModule) {
@@ -29,18 +33,39 @@ export default function AdminDashboard({ onLogout }) {
   }
 
   const handleLogout = () => {
+    setShowLogoutModal(true)
+  }
+
+  const confirmLogout = () => {
     if (onLogout) {
       onLogout()
+      navigate("/")
     }
+    setShowLogoutModal(false)
+  }
+
+  const cancelLogout = () => {
+    setShowLogoutModal(false)
   }
 
   return (
-    <div className="admin-container">
+    <div className={`admin-container ${isMenuOpen ? 'menu-open' : ''}`}>
       {/* Header */}
       <header className="admin-header">
         <div className="header-left">
-          <h1 className="admin-title">Hani Industries</h1>
-          <p className="admin-subtitle">Admin Dashboard</p>
+          <button
+            className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
+          <div className="title-section">
+            <h1 className="admin-title">Hani Industries</h1>
+            <p className="admin-subtitle">Admin Dashboard</p>
+          </div>
         </div>
         <div className="header-right">
           <button className="logout-btn" onClick={handleLogout}>
@@ -50,19 +75,28 @@ export default function AdminDashboard({ onLogout }) {
       </header>
 
       <div className="admin-wrapper">
-        {/* Main Content */}
-        <main className="admin-content">{renderContent()}</main>
-
-        {/* Right Side Menu */}
-        <aside className="admin-menu">
+        {/* Left Side Menu */}
+        <aside className={`admin-menu ${isMenuOpen ? 'open' : ''}`}>
           <nav className="menu-nav">
-            <h2 className="menu-title">Modules</h2>
+            <div className="menu-header">
+              <h2 className="menu-title">Modules</h2>
+              <button
+                className="menu-close-btn"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
 
             <ul className="menu-list">
               <li>
                 <button
                   className={`menu-item ${activeModule === "dashboard" ? "active" : ""}`}
-                  onClick={() => setActiveModule("dashboard")}
+                  onClick={() => {
+                    setActiveModule("dashboard")
+                    setIsMenuOpen(false)
+                  }}
                 >
                   <span className="menu-icon">📊</span>
                   <span className="menu-text">Dashboard</span>
@@ -72,7 +106,10 @@ export default function AdminDashboard({ onLogout }) {
               <li>
                 <button
                   className={`menu-item ${activeModule === "addProduct" ? "active" : ""}`}
-                  onClick={() => setActiveModule("addProduct")}
+                  onClick={() => {
+                    setActiveModule("addProduct")
+                    setIsMenuOpen(false)
+                  }}
                 >
                   <span className="menu-icon">➕</span>
                   <span className="menu-text">Add Product</span>
@@ -82,7 +119,10 @@ export default function AdminDashboard({ onLogout }) {
               <li>
                 <button
                   className={`menu-item ${activeModule === "addFeatured" ? "active" : ""}`}
-                  onClick={() => setActiveModule("addFeatured")}
+                  onClick={() => {
+                    setActiveModule("addFeatured")
+                    setIsMenuOpen(false)
+                  }}
                 >
                   <span className="menu-icon">⭐</span>
                   <span className="menu-text">Featured Product</span>
@@ -92,7 +132,10 @@ export default function AdminDashboard({ onLogout }) {
               <li>
                 <button
                   className={`menu-item ${activeModule === "payment" ? "active" : ""}`}
-                  onClick={() => setActiveModule("payment")}
+                  onClick={() => {
+                    setActiveModule("payment")
+                    setIsMenuOpen(false)
+                  }}
                 >
                   <span className="menu-icon">💳</span>
                   <span className="menu-text">Cart & Payment</span>
@@ -102,7 +145,10 @@ export default function AdminDashboard({ onLogout }) {
               <li>
                 <button
                   className={`menu-item ${activeModule === "placedOrders" ? "active" : ""}`}
-                  onClick={() => setActiveModule("placedOrders")}
+                  onClick={() => {
+                    setActiveModule("placedOrders")
+                    setIsMenuOpen(false)
+                  }}
                 >
                   <span className="menu-icon">📦</span>
                   <span className="menu-text">Placed Orders</span>
@@ -115,7 +161,28 @@ export default function AdminDashboard({ onLogout }) {
             <p className="footer-text">© 2025 Hani Industries</p>
           </div>
         </aside>
+
+        {/* Main Content */}
+        <main className="admin-content">{renderContent()}</main>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutModal && (
+        <div className="logout-modal-overlay">
+          <div className="logout-modal">
+            <h3 className="modal-title">Confirm Logout</h3>
+            <p className="modal-message">Are you sure you want to logout?</p>
+            <div className="modal-actions">
+              <button className="modal-btn cancel-btn" onClick={cancelLogout}>
+                No
+              </button>
+              <button className="modal-btn confirm-btn" onClick={confirmLogout}>
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

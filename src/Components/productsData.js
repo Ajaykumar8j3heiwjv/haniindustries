@@ -1,7 +1,7 @@
 const featuredProducts = [
   {
-    id: 1,
-    name: "HANI'S IDHAYAM OIL - 500 ML PET BOTTLE",
+    id: "HANI0001",
+    name: "IDHAYA OIL - 500ML BOTTLE",
     price: 130,
     originalPrice: 220,
     image: "/Products/oils/idhayam_oil_500_ml_-removebg-preview.png",
@@ -10,8 +10,8 @@ const featuredProducts = [
     discount: 13,
     badge: "sale",
     category: "oil",
-    description: "Pure Idhayam Oil with no chemicals, no preservatives. India's finest coconut oil.",
-    longDescription: "Experience the pure goodness of Hani's Idhayam Oil - physically refined using traditional methods with zero chemicals or preservatives. Perfect for all your cooking needs, this premium quality oil is sourced from the finest coconuts and processed with utmost care to maintain its nutritional value.",
+    description: "Pure Idhaya Oil with no chemicals, no preservatives. India's finest coconut oil.",
+    longDescription: "Experience the pure goodness of Hani's Idhaya Oil - physically refined using traditional methods with zero chemicals or preservatives. Perfect for all your cooking needs, this premium quality oil is sourced from the finest coconuts and processed with utmost care to maintain its nutritional value.",
     images: ["/Products/oils/idhayam_oil_500_ml_-removebg-preview.png", "/Products/oils/idhayam_oil_1000ml_-removebg-preview.png"],
     sizes: ["100ML","200ML","500ML", "1L",],
     sizePrices: {
@@ -30,8 +30,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 2,
-    name: "HANI'S IDHAYAM OIL - 1 L PET BOTTLE",
+    id: "HANI0002",
+    name: "IDHAYA OIL - 1L BOTTLE",
     price: 260,
     originalPrice: 430,
     image: "/Products/oils/idhayam_oil_1000ml_-removebg-preview.png",
@@ -60,8 +60,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 3,
-    name: "HANI'S DEVI OIL - 1 L PET BOTTLE",
+    id: "HANI0003",
+    name: "DEVI OIL - 1L BOTTLE",
     price: 150,
     originalPrice: 300,
     image: "/Products/oils/devi_olii-removebg-preview.png",
@@ -84,8 +84,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 4,
-    name: "HANI'S DEVI OIL - 500 ML PET",
+    id: "HANI0004",
+    name: "DEVI OIL - 500 ML BOTTLE",
     price: 76,
     originalPrice: 152,
     image: "/Products/oils/devi_olii-removebg-preview.png",
@@ -113,8 +113,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 5,
-    name: "HANI'S LUCKY-ALL FLOOR CLEANER - LEMON",
+    id: "HANI0005",
+    name: "LUCKY-ALL FLOOR CLEANER - LEMON 500ML",
     price: 120,
     originalPrice: 150,
     image: "/Products/others/Lucky_All-removebg-preview.png",
@@ -136,8 +136,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 6,
-    name: "HANI'S BATHROOM CLEANER",
+    id: "HANI0006",
+    name: "HAPPY HOME BOTHROOM CLEANER - 500ML",
     price: 140,
     originalPrice: 180,
     image: "/Products/others/happyhome-removebg-preview.png",
@@ -163,8 +163,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 7,
-    name: "HANI'S ALA",
+    id: "HANI0007",
+    name: "ALA",
     price: 85,
     originalPrice: 110,
     image: "/Products/others/hero8.jpg",
@@ -190,8 +190,8 @@ const featuredProducts = [
     ],
   },
   {
-    id: 8,
-    name: "HANI'S APPALAM 10 PCS",
+    id: "HANI0008",
+    name: "APPALAM 10 PCS",
     price: 25,
     originalPrice: 40,
     image: "/Products/others/hero3.png",
@@ -218,7 +218,7 @@ const featuredProducts = [
     ],
   },
   {
-    id: 9,
+    id: "HANI0009",
     name: "HANI'S SCRUB PAD",
     price: 25,
     originalPrice: 40,

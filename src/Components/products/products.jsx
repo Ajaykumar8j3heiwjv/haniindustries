@@ -12,7 +12,7 @@ function ProductsPage() {
   const [quantity, setQuantity] = useState(1)
 
   // Find the product by id
-  const product = featuredProducts.find(p => p.id === parseInt(id))
+  const product = featuredProducts.find(p => p.id === id)
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "")
 
   // Get price for selected size

@@ -9,8 +9,8 @@ function FeaturedProducts() {
 
   const featuredProducts = [
     {
-      id: 1,
-      name: "HANI'S IDHAYAM OIL - 500 ML PET BOTTLE",
+      id: "HANI0001",
+      name: "IDHAYA OIL - 500ML BOTTLE",
       price: 130,
       originalPrice: 220,
       image: "/Products/oils/idhayam_oil_500_ml_-removebg-preview.png",
@@ -21,8 +21,8 @@ function FeaturedProducts() {
       category: "oil",
     },
     {
-      id: 2,
-      name: "HANI'S IDHAYAM OIL - 1 L PET BOTTLE",
+      id: "HANI0002",
+      name: "IDHAYA OIL - 1L BOTTLE",
       price: 260,
       originalPrice: 430,
       image: "/Products/oils/idhayam_oil_1000ml_-removebg-preview.png",
@@ -33,8 +33,8 @@ function FeaturedProducts() {
       category: "oil",
     },
     {
-      id: 3,
-      name: "HANI'S DEVI OIL - 1 L PET BOTTLE",
+      id: "HANI0003",
+      name: "DEVI OIL - 1L BOTTLE",
       price: 150,
       originalPrice: 300,
       image: "/Products/oils/devi_olii-removebg-preview.png",
@@ -45,8 +45,8 @@ function FeaturedProducts() {
       category: "oil",
     },
     {
-      id: 4,
-      name: "HANI'S DEVI OIL - 500 ML PET",
+      id: "HANI0004",
+      name: "DEVI OIL - 500ML",
       price: 76,
       originalPrice: 152,
       image: "/Products/oils/devi_olii-removebg-preview.png",
@@ -57,8 +57,8 @@ function FeaturedProducts() {
       category: "oil",
     },
     {
-      id: 5,
-      name: "HANI'S LUCKY-ALL FLOOR CLEANER - LEMON 500 ML",
+      id: "HANI0005",
+      name: "LUCKY-ALL FLOOR CLEANER - LEMON 500ML",
       price: 80,
       originalPrice: 110,
       image: "/Products/others/Lucky_All-removebg-preview.png",
@@ -69,8 +69,8 @@ function FeaturedProducts() {
       category: "cleaners",
     },
     {
-      id: 6,
-      name: "HANI'S HAPPY HOMES BATHROOM CLEANER 500 ML",
+      id: "HANI0006",
+      name: "HAPPY HOMES BATHROOM CLEANER 500ML",
       price: 70,
       originalPrice: 90,
       image: "/Products/others/happyhome-removebg-preview.png",
@@ -81,8 +81,8 @@ function FeaturedProducts() {
       category: "cleaners",
     },
     {
-      id: 7,
-      name: "HANI'S RICH ALA 500 ML ",
+      id: "HANI0007",
+      name: "RICH ALA 500ML ",
       price: 45,
       originalPrice: 90,
       image: "/Products/others/hero8.jpg",
@@ -93,8 +93,8 @@ function FeaturedProducts() {
       category: "cleaners",
     },
     {
-      id: 8,
-      name: "HANI'S APPALAM 10 PCS",
+      id: "HANI0008",
+      name: "APPALAM 10 PCS",
       price: 25,
       originalPrice: 40,
       image: "/Products/others/hero3.png",

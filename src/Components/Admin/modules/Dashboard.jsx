@@ -3,9 +3,9 @@ import "../styles/Dashboard.css"
 export default function Dashboard() {
   const stats = [
     { label: "Total Products", value: "156", icon: "📦", color: "#001f3f" },
-    { label: "Featured Products", value: "24", icon: "⭐", color: "#0074D9" },
+    // { label: "Featured Products", value: "24", icon: "⭐", color: "#0074D9" },
     { label: "Total Orders", value: "2,847", icon: "🛒", color: "#FF4136" },
-    { label: "Revenue", value: "₹5.2L", icon: "💰", color: "#2ECC40" },
+    // { label: "Revenue", value: "₹5.2L", icon: "💰", color: "#2ECC40" },
   ]
 
   return (
@@ -68,7 +68,7 @@ export default function Dashboard() {
           </table>
         </div>
 
-        <div className="quick-stats">
+        {/* <div className="quick-stats">
           <h3 className="section-title">Quick Stats</h3>
           <div className="stat-item">
             <span>Conversion Rate</span>
@@ -91,7 +91,7 @@ export default function Dashboard() {
             </div>
             <span className="percentage">85%</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

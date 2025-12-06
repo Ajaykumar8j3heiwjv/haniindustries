@@ -80,11 +80,11 @@
 }
 
 /* Dashboard Grid */
-.dashboard-grid {
+/* .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
-}
+} */
 
 .recent-orders,
 .quick-stats {
