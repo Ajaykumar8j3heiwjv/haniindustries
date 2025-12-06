@@ -7,25 +7,108 @@ import CollectionsPage from "./Components/Collections/collection"
 import ProductsPage from "./Components/products/products"
 import CartPage from "./Components/Cart/cart"
 import CheckoutPage from "./Components/Cart/checkout"
+import AdminDashboard from "./Components/Admin/AdminDashboard"
+import AdminLogin from "./Components/Admin/Admin_login/AdminLogin"
+import PrivateRoute from "./Components/Admin/PrivateRoute"
 import Contact from "./Components/Contact"
 import "./App.css"
 
 function App() {
+  const handleLogout = () => {
+    localStorage.removeItem("adminAuthenticated")
+    localStorage.removeItem("adminUser")
+  }
+
   return (
     <CartProvider>
       <Router>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/collections" element={<CollectionsPage />} />
-            <Route path="/products/:id" element={<ProductsPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage/>} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
+        <Routes>
+          {/* Admin Routes */}
+          <Route path="/admin-login" element={<AdminLogin />} />
+
+          <Route
+            path="/Admin"
+            element={
+              <PrivateRoute>
+                <AdminDashboard onLogout={handleLogout} />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Public Routes with Header and Footer */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <main>
+                  <HomePage />
+                </main>
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/collections"
+            element={
+              <>
+                <Header />
+                <main>
+                  <CollectionsPage />
+                </main>
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/products/:id"
+            element={
+              <>
+                <Header />
+                <main>
+                  <ProductsPage />
+                </main>
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <>
+                <Header />
+                <main>
+                  <CartPage />
+                </main>
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <>
+                <Header />
+                <main>
+                  <CheckoutPage />
+                </main>
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <>
+                <Header />
+                <main>
+                  <Contact />
+                </main>
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
       </Router>
     </CartProvider>
   )
