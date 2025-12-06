@@ -93,7 +93,7 @@ function CartPage() {
 
               {shipping > 0 && <p className="free-shipping-hint">Add Rs. {500 - subtotal} more for FREE shipping</p>}
 
-              <button className="checkout-btn">Proceed to Checkout</button>
+              <Link to="/checkout" className="checkout-btn">Proceed to Checkout</Link>
             </aside>
           </>
         ) : (

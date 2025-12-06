@@ -1,11 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useCart } from "./CartContext"
+import { QRCodeCanvas } from "qrcode.react"
 import "./checkout.css"
 
 function CheckoutPage() {
+  const { cartItems } = useCart()
   const [selectedPayment, setSelectedPayment] = useState("cod")
+  const [selectedOnlinePayment, setSelectedOnlinePayment] = useState("")
+  const [lastSelectedOnlinePayment, setLastSelectedOnlinePayment] = useState("")
+  const [showQRCode, setShowQRCode] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,6 +40,20 @@ function CheckoutPage() {
     setCardData({ ...cardData, [name]: value })
   }
 
+  // Reset online payment selection and QR code when payment method changes
+  useEffect(() => {
+    if (selectedPayment !== "online") {
+      if (selectedOnlinePayment) {
+        setLastSelectedOnlinePayment(selectedOnlinePayment)
+      }
+      setSelectedOnlinePayment("")
+      setShowQRCode(false)
+    } else if (selectedPayment === "online" && !selectedOnlinePayment && lastSelectedOnlinePayment) {
+      // Restore the last selected online payment when switching back to online
+      setSelectedOnlinePayment(lastSelectedOnlinePayment)
+    }
+  }, [selectedPayment])
+
   const handlePlaceOrder = () => {
     const isFormValid = Object.values(formData).every((field) => field.trim() !== "")
     if (!isFormValid) {
@@ -50,24 +70,20 @@ function CheckoutPage() {
       }
     }
 
-    alert(`Order placed successfully with ${selectedPayment.toUpperCase()}`)
+    if (selectedPayment === "online" && !selectedOnlinePayment) {
+      alert("Please select an online payment method")
+      return
+    }
+
+    if (selectedPayment === "online") {
+      setShowQRCode(true)
+      alert(`Order placed successfully! Please scan the QR code to complete payment of Rs. ${total.toFixed(2)}`)
+    } else {
+      alert(`Order placed successfully with ${selectedPayment.toUpperCase()}`)
+    }
   }
 
-  // Sample cart items from the previous page
-  const cartItems = [
-    {
-      id: 1,
-      name: "HANI'S SUNFLOWER OIL - 5 L JAR",
-      price: 650,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "HANI'S SUNFLOWER OIL - 2 L PET BOTTLE",
-      price: 280,
-      quantity: 2,
-    },
-  ]
+
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const tax = subtotal * 0.18
@@ -230,7 +246,10 @@ function CheckoutPage() {
                 </div>
                 <div className="payment-methods-grid">
                   {/* Google Pay */}
-                  <div className="payment-method-icon">
+                  <div
+                    className={`payment-method-icon ${selectedOnlinePayment === "Google Pay" ? "selected" : ""}`}
+                    onClick={() => setSelectedOnlinePayment("Google Pay")}
+                  >
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                       <rect width="40" height="40" rx="8" fill="#F3F3F3" />
                       <text x="20" y="26" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1F2937">
@@ -241,7 +260,10 @@ function CheckoutPage() {
                   </div>
 
                   {/* Paytm */}
-                  <div className="payment-method-icon">
+                  <div
+                    className={`payment-method-icon ${selectedOnlinePayment === "Paytm" ? "selected" : ""}`}
+                    onClick={() => setSelectedOnlinePayment("Paytm")}
+                  >
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                       <rect width="40" height="40" rx="8" fill="#002970" />
                       <text x="20" y="26" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">
@@ -252,7 +274,10 @@ function CheckoutPage() {
                   </div>
 
                   {/* PhonePe */}
-                  <div className="payment-method-icon">
+                  <div
+                    className={`payment-method-icon ${selectedOnlinePayment === "PhonePe" ? "selected" : ""}`}
+                    onClick={() => setSelectedOnlinePayment("PhonePe")}
+                  >
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                       <rect width="40" height="40" rx="8" fill="#5F2D91" />
                       <text x="20" y="26" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">
@@ -339,6 +364,23 @@ function CheckoutPage() {
                 </div>
               </div>
             )}
+
+            {/* QR Code Display - Show only when online payment is selected and Place Order is clicked */}
+            {showQRCode && selectedPayment === "online" && selectedOnlinePayment && (
+              <div className="qr-code-section">
+                <h3>Scan QR Code to Pay</h3>
+                <div className="qr-code-container">
+                  <QRCodeCanvas
+                    value={`upi://pay?pa=merchant@haniindustries&pn=HANI%20INDUSTRIES&am=${total.toFixed(2)}&cu=INR&tn=Payment%20for%20Order`}
+                    size={200}
+                    level="M"
+                  />
+                </div>
+                <p className="qr-instructions">
+                  Scan this QR code with your {selectedOnlinePayment} app to complete the payment of Rs. {total.toFixed(2)}
+                </p>
+              </div>
+            )}
           </div>
         </main>
 
@@ -349,8 +391,12 @@ function CheckoutPage() {
           <div className="summary-items">
             {cartItems.map((item) => (
               <div key={item.id} className="summary-item-card">
+                <div className="summary-item-image">
+                  <img src={item.image || "/placeholder.svg?height=50&width=50"} alt={item.name} />
+                </div>
                 <div className="summary-item-info">
                   <h3>{item.name}</h3>
+                  <span className="item-size">Size: {item.size}</span>
                   <span className="item-qty">Qty: {item.quantity}</span>
                 </div>
                 <span className="summary-item-price">Rs. {item.price * item.quantity}</span>
@@ -396,3 +442,4 @@ function CheckoutPage() {
 }
 
 export default CheckoutPage
+ 
